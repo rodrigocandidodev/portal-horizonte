@@ -54,6 +54,7 @@ module.exports = {
             //gathering data
             const data = {
                 name: name,
+                username: username,
                 email: email,
                 password: hashedPassword
             };
