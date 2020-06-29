@@ -4,9 +4,20 @@ const bcrypt        = require('bcryptjs');
 
 module.exports = {
     async index(request, response){
-        return response.json({
-            message: "Admins page"
-        });
+        try{
+            const admins = await connection('admins')
+                .select([
+                    'name',
+                    'username',
+                    'email'
+                ]);
+
+            return response.json(admins);
+        } catch(error){
+            return response.json({
+                error: notifications.error.receiving_data
+            });
+        }   
     },
     async create(request, response){
         try{

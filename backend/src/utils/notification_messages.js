@@ -8,6 +8,7 @@ module.exports = {
         no_data_found: 'Data not found!'
     },
     error: {
-        insert_data: 'Error while inserting data!'
+        insert_data: 'Error while inserting data!',
+        receiving_data: 'Error while receiving data!'
     }
 }
