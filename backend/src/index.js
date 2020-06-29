@@ -11,4 +11,4 @@ app.use(cors()); //this allows external apps to connect to this api
 app.use(express.json()); //it enables writing and reading in JSON format
 app.use('/api',routes); //every route defined in routes.js will start with /api
 
-app.listen(port,console.log(`Listening on port ${port}`)); //this starts the server
+app.listen(port,console.log(`[bknd server] Listening on port ${port}`)); //this starts the server
