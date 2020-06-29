@@ -24,6 +24,16 @@ module.exports = {
             const password  = request.body.password;
             const {name, username, email} = request.body;
 
+            //checking if any field is empty
+            if(!name || !username || !email || !password) {
+                return response.json({message: notifications.alert.empty_fields});
+            } 
+
+            //checking if email is valid
+            if(email.indexOf('@') == -1 || email.indexOf('.')==-1 ){
+                return response.json({message: notifications.alert.invalid_email});
+            }
+
             //Checking if the email is already used
             const email_used = await connection('admins')
                 .where('email', email)
@@ -44,7 +54,7 @@ module.exports = {
 
             if(username_used){
                 return response.json({
-                    message: notifications.alert.email_already_used
+                    message: notifications.alert.username_already_used
                 });
             }
 
@@ -59,7 +69,9 @@ module.exports = {
                 password: hashedPassword
             };
 
+            //inserting data into database
             const admin = await connection('admins').insert(data);
+            //if data was not inserted
             if(!admin){
                 return response.status(400).json({
                     message: notifications.alert.no_data_found,
