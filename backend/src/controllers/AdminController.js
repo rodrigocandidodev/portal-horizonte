@@ -1,6 +1,7 @@
 const connection    = require('../database/connection');
 const notifications = require('../utils/notification_messages');
 const bcrypt        = require('bcryptjs');
+const { update } = require('../database/connection');
 
 module.exports = {
     async index(request, response){
@@ -109,6 +110,34 @@ module.exports = {
         } catch(error) {
             return response.json({
                 error: notifications.error.receiving_data
+            });
+        }
+    },
+    async update(request, response){
+        try{
+            const id = request.params.id;
+            const {name, username, email}    = request.body;
+
+            //updating data
+            const admin = await connection('admins')
+                .where('id', id)
+                .update({name, username, email});
+            
+            //receiving the updated data
+            const updated_data = await connection('admins')
+                .select('name', 'username', 'email')
+                .where('id', id)
+                .first();
+            
+            console.log('[bknd server] Admin Data' + notifications.success.update_data);
+
+            return response.json({
+                message: notifications.success.update_data,
+                data: updated_data
+            })
+        }catch(error){
+            return response.json({
+                error: notifications.error.updating_data
             });
         }
     }
