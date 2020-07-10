@@ -148,6 +148,8 @@ module.exports = {
                 .where('id', id)
                 .del();
             
+            console.log('[bknd server] Admin Data' + notifications.success.delete_data);
+            
             return response.json({
                 message: notifications.success.delete_data,
                 data: null
