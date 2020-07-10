@@ -7,6 +7,7 @@ module.exports = {
         try{
             const admins = await connection('admins')
                 .select([
+                    'id',
                     'name',
                     'username',
                     'email'
@@ -75,7 +76,7 @@ module.exports = {
             if(!admin){
                 return response.status(400).json({
                     message: notifications.alert.no_data_found,
-                    data: admin
+                    data: null
                 });
             }else{
                 console.log('[bknd server] New Admin' + notifications.success.insert_data);
@@ -87,6 +88,27 @@ module.exports = {
         }catch(error){
             return response.json({
                 error: notifications.error.insert_data
+            });
+        }
+    },
+    async show(request, response){
+        try{
+            const id    = request.params.id;
+            const admin = await connection('admins')
+                .select('id', 'name', 'username', 'email')
+                .where('id', id)
+                .first();
+            if(!admin){
+                return response.status(400).json({
+                    message: notifications.alert.no_data_found,
+                    data: null
+                });
+            }else{
+                return response.json(admin);
+            }
+        } catch(error) {
+            return response.json({
+                error: notifications.error.receiving_data
             });
         }
     }
