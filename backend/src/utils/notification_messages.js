@@ -1,7 +1,8 @@
 module.exports = {
     success: {
         insert_data: 'Data successfully added!',
-        update_data: 'Data successfully updated!'
+        update_data: 'Data successfully updated!',
+        delete_data: 'Data successfully removed!'
     },
     alert: {
         email_already_used: 'This e-mail is already used!',
@@ -13,6 +14,7 @@ module.exports = {
     error: {
         insert_data: 'Error while inserting data!',
         receiving_data: 'Error while receiving data!',
-        updating_data: 'Error while updating data!'
+        updating_data: 'Error while updating data!',
+        deleting_data: 'Error while deleting data!'
     }
 }

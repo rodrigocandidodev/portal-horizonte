@@ -1,7 +1,7 @@
 const connection    = require('../database/connection');
 const notifications = require('../utils/notification_messages');
 const bcrypt        = require('bcryptjs');
-const { update } = require('../database/connection');
+const { update, destroy } = require('../database/connection');
 
 module.exports = {
     async index(request, response){
@@ -138,6 +138,23 @@ module.exports = {
         }catch(error){
             return response.json({
                 error: notifications.error.updating_data
+            });
+        }
+    },
+    async destroy(request, response){
+        try{
+            const id = request.params.id;
+            const admin = await connection('admins')
+                .where('id', id)
+                .del();
+            
+            return response.json({
+                message: notifications.success.delete_data,
+                data: null
+            });
+        }catch(error){
+            return response.json({
+                error: notifications.error.deleting_data
             });
         }
     }
