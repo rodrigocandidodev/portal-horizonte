@@ -47,5 +47,26 @@ module.exports = {
         } catch (error) {
             return response.json(notifications.error.receiving_data);
         }
-    }
+    },
+    async show(request, response){
+        try{
+            const id    = request.params.id;
+            const school_year = await connection('school_years')
+                .select('year')
+                .where('id', id)
+                .first();
+            if(!school_year){
+                return response.status(400).json({
+                    message: notifications.alert.no_data_found,
+                    data: null
+                });
+            }else{
+                return response.json(school_year);
+            }
+        } catch(error) {
+            return response.json({
+                error: notifications.error.receiving_data
+            });
+        }
+    },
 };
