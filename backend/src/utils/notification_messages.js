@@ -9,7 +9,8 @@ module.exports = {
         username_already_used: 'This username is already used!',
         no_data_found: 'Data not found!',
         empty_fields: 'Some field are empty! Please, insert some data!',
-        invalid_email: 'This E-mail is invalid!'
+        invalid_email: 'This E-mail is invalid!',
+        school_year_already_added: 'This school year is already added!'
     },
     error: {
         insert_data: 'Error while inserting data!',
