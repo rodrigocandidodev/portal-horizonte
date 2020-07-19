@@ -1,5 +1,6 @@
 const connection    = require('../database/connection');
 const notifications = require('../utils/notification_messages');
+const { index } = require('./AdminController');
 
 module.exports = {
     async create(request, response){
@@ -35,6 +36,16 @@ module.exports = {
             }
         } catch (error) {
             return response.json(notifications.error.insert_data);
+        }
+    },
+    async index(request, response){
+        try {
+            const school_years = await connection('school_years')
+                .select(['id','year']);
+            
+            return response.json(school_years);
+        } catch (error) {
+            return response.json(notifications.error.receiving_data);
         }
     }
 };
