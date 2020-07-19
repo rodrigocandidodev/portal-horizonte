@@ -1,7 +1,6 @@
 const connection    = require('../database/connection');
 const notifications = require('../utils/notification_messages');
 const bcrypt        = require('bcryptjs');
-const { update, destroy } = require('../database/connection');
 
 module.exports = {
     async index(request, response){
