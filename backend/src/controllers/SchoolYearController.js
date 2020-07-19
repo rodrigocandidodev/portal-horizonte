@@ -69,4 +69,23 @@ module.exports = {
             });
         }
     },
+    async destroy(request, response){
+        try{
+            const id = request.params.id;
+            const school_years = await connection('school_years')
+                .where('id', id)
+                .del();
+            
+            console.log('[bknd server] School Year: ' + notifications.success.delete_data);
+            
+            return response.json({
+                message: notifications.success.delete_data,
+                data: null
+            });
+        }catch(error){
+            return response.json({
+                error: notifications.error.deleting_data
+            });
+        }
+    }
 };
