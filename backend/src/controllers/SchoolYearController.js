@@ -1,6 +1,5 @@
 const connection    = require('../database/connection');
 const notifications = require('../utils/notification_messages');
-const { index } = require('./AdminController');
 
 module.exports = {
     async create(request, response){
