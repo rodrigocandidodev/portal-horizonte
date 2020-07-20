@@ -68,6 +68,34 @@ module.exports = {
             });
         }
     },
+    async update(request, response){
+        try{
+            const id        = request.params.id;
+            const {name}    = request.body;
+
+            //updating data
+            const department = await connection('departments')
+                .where('id', id)
+                .update({name});
+            
+            //receiving the updated data
+            const updated_data = await connection('departments')
+                .select('id','name')
+                .where('id', id)
+                .first();
+            
+            console.log('[bknd server] Department Data' + notifications.success.update_data);
+
+            return response.json({
+                message: notifications.success.update_data,
+                data: updated_data
+            })
+        }catch(error){
+            return response.json({
+                error: notifications.error.updating_data
+            });
+        }
+    },
     async destroy(request, response){
         try{
             const id = request.params.id;
