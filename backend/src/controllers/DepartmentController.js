@@ -37,4 +37,14 @@ module.exports = {
             return response.json(notifications.error.insert_data);
         }
     },
+    async index(request, response){
+        try {
+            const departments = await connection('departments')
+                .select(['id','name']);
+            
+            return response.json(departments);
+        } catch (error) {
+            return response.json(notifications.error.receiving_data);
+        }
+    },
 };

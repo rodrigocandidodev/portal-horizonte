@@ -17,6 +17,7 @@ router.get('/school-years/:id',             SchoolYearController.show);
 router.post('/school-years',                SchoolYearController.create);
 router.delete('/school-years/delete/:id',   SchoolYearController.destroy);
 
+router.get('/departments',                  DepartmentController.index);
 router.post('/departments',                 DepartmentController.create);
 
 module.exports = router;
