@@ -11,7 +11,8 @@ module.exports = {
         empty_fields: 'Some field are empty! Please, insert some data!',
         invalid_email: 'This E-mail is invalid!',
         school_year_already_added: 'This school year is already added!',
-        department_year_already_added: 'This department is already added!'
+        department_already_added: 'This department is already added!',
+        job_already_added: 'This Job is already added!'
     },
     error: {
         insert_data: 'Error while inserting data!',

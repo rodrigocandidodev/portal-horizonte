@@ -6,10 +6,46 @@ module.exports = {
         try {
             const jobs = await connection('jobs')
                 .innerJoin('departments','departments.id','=','jobs.department_id')
-                .select(['jobs.id','jobs.department_id','jobs.name','departments.name']);
+                .select(['jobs.id','jobs.department_id','jobs.name as job_name','departments.name as department_name']);
             return response.json(jobs);
         } catch (error) {
             return response.json(notifications.error.receiving_data);
+        }
+    },
+    async create(request, response){
+        try {
+            const {name,department_id} = request.body;
+
+            //Checking if the job is already added
+            const job_already_added = await connection('jobs')
+                .where('name', name)
+                .where('department_id', department_id)
+                .select('id')
+                .first();
+            if(job_already_added){
+                return response.json({
+                    message: notifications.alert.job_already_added
+                });
+            }
+            //insert data
+            const job_inserting = await connection('jobs')
+                .insert({name,department_id});
+
+            //check if data was added
+            if(!job_inserting){
+                return response.status(400).json({
+                    message: notifications.alert.no_data_found,
+                    data: null
+                });
+            } else {
+                console.log('[bknd server] New Job: ' + notifications.success.insert_data);
+                return response.json({
+                    message: notifications.success.insert_data,
+                    data: job_inserting
+                });
+            }
+        } catch (error) {
+            return response.json(notifications.error.insert_data);
         }
     },
 };
