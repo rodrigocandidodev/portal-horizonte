@@ -13,7 +13,7 @@ module.exports = {
                 .first();
             if(department_already_added){
                 return response.json({
-                    message: notifications.alert.department_year_already_added
+                    message: notifications.alert.department_already_added
                 });
             }
             //insert data
