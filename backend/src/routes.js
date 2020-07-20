@@ -5,6 +5,7 @@ const router    = express.Router();
 const AdminController       = require('./controllers/AdminController');
 const SchoolYearController  = require('./controllers/SchoolYearController');
 const DepartmentController  = require('./controllers/DepartmentController');
+const JobController         = require('./controllers/JobController');
 
 router.get('/admins',               AdminController.index);
 router.get('/admins/:id',           AdminController.show);
@@ -22,5 +23,7 @@ router.get('/departments/:id',              DepartmentController.show);
 router.post('/departments',                 DepartmentController.create);
 router.put('/departments/update/:id',       DepartmentController.update);
 router.delete('/departments/delete/:id',    DepartmentController.destroy);
+
+router.get('/jobs',                  JobController.index);
 
 module.exports = router;
