@@ -12,6 +12,28 @@ module.exports = {
             return response.json(notifications.error.receiving_data);
         }
     },
+    async show(request, response){
+        try{
+            const id    = request.params.id;
+            const job   = await connection('jobs')
+                .innerJoin('departments','departments.id','=','jobs.department_id')
+                .select(['jobs.id','jobs.department_id','jobs.name as job_name','departments.name as department_name'])
+                .where('jobs.id', id)
+                .first();
+            if(!job){
+                return response.status(400).json({
+                    message: notifications.alert.no_data_found,
+                    data: null
+                });
+            }else{
+                return response.status(200).json(job);
+            }
+        } catch(error) {
+            return response.json({
+                error: notifications.error.receiving_data
+            });
+        }
+    },
     async create(request, response){
         try {
             const {name,department_id} = request.body;
