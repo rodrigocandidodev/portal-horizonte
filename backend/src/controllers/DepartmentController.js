@@ -99,6 +99,19 @@ module.exports = {
     async destroy(request, response){
         try{
             const id = request.params.id;
+
+            //Check if the department is been used
+            const allowed_to_delete = await connection('jobs')
+                .where({
+                    department_id: id
+                })
+                .select('id');
+            if (allowed_to_delete) {
+                return response.json({
+                    message: notifications.alert.department_used,
+                    data: null
+                });
+            }
             const department = await connection('departments')
                 .where('id', id)
                 .del();
