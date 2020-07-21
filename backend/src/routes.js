@@ -34,5 +34,7 @@ router.delete('/jobs/delete/:id',    JobController.destroy);
 router.get('/colors',               ColorController.index);
 router.get('/colors/:id',           ColorController.show);
 router.post('/colors',              ColorController.create);
+router.put('/colors/update/:id',    ColorController.update);
+router.delete('/colors/delete/:id', ColorController.destroy);
 
 module.exports = router;

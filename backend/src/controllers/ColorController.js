@@ -68,4 +68,52 @@ module.exports = {
             });
         }
     },
+    async update(request, response){
+        try{
+            const id        = request.params.id;
+            const {color}   = request.body;
+
+            //updating data
+            const updating_color = await connection('colors')
+                .where('id', id)
+                .update({color});
+            
+            //receiving the updated data
+            const updated_data = await connection('colors')
+                .select('id','color')
+                .where('id', id)
+                .first();
+            
+            console.log('[bknd server] Color: ' + notifications.success.update_data);
+
+            return response.json({
+                message: notifications.success.update_data,
+                data: updated_data
+            })
+        }catch(error){
+            return response.json({
+                error: notifications.error.updating_data
+            });
+        }
+    },
+    async destroy(request, response){
+        try{
+            const id = request.params.id;
+
+            const color = await connection('colors')
+                .where('id', id)
+                .del();
+            
+            console.log('[bknd server] Color: ' + notifications.success.delete_data);
+            
+            return response.json({
+                message: notifications.success.delete_data,
+                data: null
+            });
+        }catch(error){
+            return response.json({
+                error: notifications.error.deleting_data
+            });
+        }
+    }
 };
