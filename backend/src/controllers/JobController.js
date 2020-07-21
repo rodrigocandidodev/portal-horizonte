@@ -18,8 +18,10 @@ module.exports = {
 
             //Checking if the job is already added
             const job_already_added = await connection('jobs')
-                .where('name', name)
-                .where('department_id', department_id)
+                .where({
+                    name: name,
+                    department_id: department_id
+                })
                 .select('id')
                 .first();
             if(job_already_added){
@@ -80,7 +82,7 @@ module.exports = {
                 .where('id', id)
                 .first();
             
-            console.log('[bknd server] Job Data' + notifications.success.update_data);
+            console.log('[bknd server] Job: ' + notifications.success.update_data);
 
             return response.json({
                 message: notifications.success.update_data,
