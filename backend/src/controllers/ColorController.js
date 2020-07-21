@@ -47,4 +47,25 @@ module.exports = {
             return response.json(notifications.error.receiving_data);
         }
     },
+    async show(request, response){
+        try{
+            const id    = request.params.id;
+            const color = await connection('colors')
+                .select('color')
+                .where('id', id)
+                .first();
+            if(!color){
+                return response.status(400).json({
+                    message: notifications.alert.no_data_found,
+                    data: null
+                });
+            }else{
+                return response.json(color);
+            }
+        } catch(error) {
+            return response.json({
+                error: notifications.error.receiving_data
+            });
+        }
+    },
 };
