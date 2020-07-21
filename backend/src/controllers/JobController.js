@@ -48,4 +48,47 @@ module.exports = {
             return response.json(notifications.error.insert_data);
         }
     },
+    async update(request, response){
+        try {
+            const id = request.params.id;
+            const {name, department_id} = request.body;
+
+            //Checking if this data is already added
+            const job_already_added = await connection('jobs')
+                .where({
+                    name: name,
+                    department_id: department_id
+                })
+                .select('id')
+                .first();
+            if(job_already_added){
+                return response.json({
+                    message: notifications.alert.job_already_added
+                });
+            }
+            //update data
+            const job = await connection('jobs')
+                .where('id', id)
+                .update({
+                    name: name,
+                    department_id: department_id
+                });
+            
+            //receiving the updated data
+            const updated_data = await connection('jobs')
+                .select('id','name','department_id')
+                .where('id', id)
+                .first();
+            
+            console.log('[bknd server] Job Data' + notifications.success.update_data);
+
+            return response.json({
+                message: notifications.success.update_data,
+                data: updated_data
+            })
+            
+        } catch (error) {
+            return response.json(notifications.error.updating_data)
+        }
+    }
 };

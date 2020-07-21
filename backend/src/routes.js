@@ -26,5 +26,6 @@ router.delete('/departments/delete/:id',    DepartmentController.destroy);
 
 router.get('/jobs',                  JobController.index);
 router.post('/jobs',                 JobController.create);
+router.put('/jobs/update/:id',       JobController.update);
 
 module.exports = router;
