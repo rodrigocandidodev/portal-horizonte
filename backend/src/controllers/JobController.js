@@ -92,5 +92,24 @@ module.exports = {
         } catch (error) {
             return response.json(notifications.error.updating_data)
         }
+    },
+    async destroy(request, response){
+        try {
+            const id    = request.params.id;
+            const job   = await connection('jobs')
+                .where('id', id)
+                .del();
+            
+            console.log('[bknd server] Job: ' + notifications.success.delete_data);
+            
+            return response.json({
+                message: notifications.success.delete_data,
+                data: null
+            });
+        } catch (error) {
+            return response.json({
+                error: notifications.error.deleting_data
+            });
+        }
     }
 };
