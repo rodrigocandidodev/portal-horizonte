@@ -47,4 +47,25 @@ module.exports = {
             return response.json(notifications.error.receiving_data);
         }
     },
+    async show(request, response){
+        try{
+            const id    = request.params.id;
+            const scholarity = await connection('scholarities')
+                .select('scholarity')
+                .where('id', id)
+                .first();
+            if(!scholarity){
+                return response.status(400).json({
+                    message: notifications.alert.no_data_found,
+                    data: null
+                });
+            }else{
+                return response.json(scholarity);
+            }
+        } catch(error) {
+            return response.json({
+                error: notifications.error.receiving_data
+            });
+        }
+    },
 };
