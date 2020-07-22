@@ -68,4 +68,32 @@ module.exports = {
             });
         }
     },
+    async update(request, response){
+        try{
+            const id        = request.params.id;
+            const {scholarity}  = request.body;
+
+            //updating data
+            const updating_scholarity = await connection('scholarities')
+                .where('id', id)
+                .update({scholarity});
+            
+            //receiving the updated data
+            const updated_data = await connection('scholarities')
+                .select('id','scholarity')
+                .where('id', id)
+                .first();
+            
+            console.log('[bknd server] Scholarity: ' + notifications.success.update_data);
+
+            return response.json({
+                message: notifications.success.update_data,
+                data: updated_data
+            })
+        }catch(error){
+            return response.json({
+                error: notifications.error.updating_data
+            });
+        }
+    },
 };

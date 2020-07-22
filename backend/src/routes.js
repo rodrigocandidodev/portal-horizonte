@@ -55,5 +55,6 @@ router.delete('/school-shifts/delete/:id',SchoolShiftController.destroy);
 router.get('/scholarities',           ScholarityController.index);
 router.get('/scholarities/:id',       ScholarityController.show);
 router.post('/scholarities',          ScholarityController.create);
+router.put('/scholarities/update/:id',ScholarityController.update);
 
 module.exports = router;
