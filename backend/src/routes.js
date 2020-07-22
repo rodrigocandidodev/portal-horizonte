@@ -45,6 +45,7 @@ router.post('/genders',             GenderController.create);
 router.put('/genders/update/:id',   GenderController.update);
 router.delete('/genders/delete/:id',GenderController.destroy);
 
+router.get('/school-shifts',              SchoolShiftController.index);
 router.post('/school-shifts',             SchoolShiftController.create);
 
 module.exports = router;

@@ -37,4 +37,14 @@ module.exports = {
             return response.json(notifications.error.insert_data)
         }
     },
+    async index(request, response){
+        try {
+            const school_shift = await connection('school_shifts')
+                .select(['id','school_shift']);
+            
+            return response.json(school_shift);
+        } catch (error) {
+            return response.json(notifications.error.receiving_data);
+        }
+    },
 };
