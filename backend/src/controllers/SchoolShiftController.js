@@ -96,4 +96,24 @@ module.exports = {
             });
         }
     },
+    async destroy(request, response){
+        try{
+            const id = request.params.id;
+
+            const deleting_data = await connection('school_shifts')
+                .where('id', id)
+                .del();
+            
+            console.log('[bknd server] School Shift: ' + notifications.success.delete_data);
+            
+            return response.json({
+                message: notifications.success.delete_data,
+                data: null
+            });
+        }catch(error){
+            return response.json({
+                error: notifications.error.deleting_data
+            });
+        }
+    }
 };
