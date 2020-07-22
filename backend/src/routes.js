@@ -39,6 +39,7 @@ router.put('/colors/update/:id',    ColorController.update);
 router.delete('/colors/delete/:id', ColorController.destroy);
 
 router.get('/genders',              GenderController.index);
+router.get('/genders/:id',          GenderController.show);
 router.post('/genders',             GenderController.create);
 
 module.exports = router;
