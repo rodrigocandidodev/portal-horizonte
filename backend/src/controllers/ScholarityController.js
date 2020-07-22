@@ -34,7 +34,6 @@ module.exports = {
                 });
             }
         } catch (error) {
-            console.error(error);
             return response.json(notifications.error.insert_data);
         }
     },
