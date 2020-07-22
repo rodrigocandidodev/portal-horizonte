@@ -42,5 +42,6 @@ router.get('/genders',              GenderController.index);
 router.get('/genders/:id',          GenderController.show);
 router.post('/genders',             GenderController.create);
 router.put('/genders/update/:id',   GenderController.update);
+router.delete('/genders/delete/:id',GenderController.destroy);
 
 module.exports = router;
