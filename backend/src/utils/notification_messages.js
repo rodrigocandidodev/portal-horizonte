@@ -14,7 +14,8 @@ module.exports = {
         department_already_added: 'This department is already added!',
         department_used: 'You cannot remove this department! There are some jobs related to it.',
         job_already_added: 'This Job is already added!',
-        color_already_added: 'This Color is already added!'
+        color_already_added: 'This Color is already added!',
+        gender_already_added: 'This Gender is already added!'
     },
     error: {
         insert_data: 'Error while inserting data!',
