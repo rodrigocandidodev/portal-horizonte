@@ -68,4 +68,32 @@ module.exports = {
             });
         }
     },
+    async update(request, response){
+        try{
+            const id                = request.params.id;
+            const {school_shift}    = request.body;
+
+            //updating data
+            const updating_school_shift = await connection('school_shifts')
+                .where('id', id)
+                .update({school_shift});
+            
+            //receiving the updated data
+            const updated_data = await connection('school_shifts')
+                .select('id','school_shift')
+                .where('id', id)
+                .first();
+            
+            console.log('[bknd server] School Shift: ' + notifications.success.update_data);
+
+            return response.json({
+                message: notifications.success.update_data,
+                data: updated_data
+            })
+        }catch(error){
+            return response.json({
+                error: notifications.error.updating_data
+            });
+        }
+    },
 };
