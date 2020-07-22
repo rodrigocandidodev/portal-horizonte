@@ -37,4 +37,14 @@ module.exports = {
             return response.json(notifications.error.insert_data);
         }
     },
+    async index(request, response){
+        try {
+            const scholarities = await connection('scholarities')
+                .select(['id','scholarity']);
+            
+            return response.json(scholarities);
+        } catch (error) {
+            return response.json(notifications.error.receiving_data);
+        }
+    },
 };
