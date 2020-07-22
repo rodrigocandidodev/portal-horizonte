@@ -37,4 +37,14 @@ module.exports = {
             return response.json(notifications.error.insert_data)
         }
     },
+    async index(request, response){
+        try {
+            const genders = await connection('genders')
+                .select(['id','gender']);
+            
+            return response.json(genders);
+        } catch (error) {
+            return response.json(notifications.error.receiving_data);
+        }
+    },
 };
