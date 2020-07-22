@@ -16,7 +16,8 @@ module.exports = {
         job_already_added: 'This Job is already added!',
         color_already_added: 'This Color is already added!',
         gender_already_added: 'This Gender is already added!',
-        school_shift_already_added: 'This School Shift is already added!'
+        school_shift_already_added: 'This School Shift is already added!',
+        scholarity_already_added: 'This Scholarity is already added!'
     },
     error: {
         insert_data: 'Error while inserting data!',

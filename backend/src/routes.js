@@ -9,6 +9,7 @@ const JobController         = require('./controllers/JobController');
 const ColorController       = require('./controllers/ColorController');
 const GenderController      = require('./controllers/GenderController');
 const SchoolShiftController = require('./controllers/SchoolShiftController');
+const ScholarityController  = require('./controllers/ScholarityController');
 
 router.get('/admins',               AdminController.index);
 router.get('/admins/:id',           AdminController.show);
@@ -50,5 +51,7 @@ router.get('/school-shifts/:id',          SchoolShiftController.show);
 router.post('/school-shifts',             SchoolShiftController.create);
 router.put('/school-shifts/update/:id',   SchoolShiftController.update);
 router.delete('/school-shifts/delete/:id',SchoolShiftController.destroy);
+
+router.post('/scholarities',          ScholarityController.create);
 
 module.exports = router;
