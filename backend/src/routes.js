@@ -7,7 +7,8 @@ const SchoolYearController  = require('./controllers/SchoolYearController');
 const DepartmentController  = require('./controllers/DepartmentController');
 const JobController         = require('./controllers/JobController');
 const ColorController       = require('./controllers/ColorController');
-const GenderController       = require('./controllers/GenderController');
+const GenderController      = require('./controllers/GenderController');
+const SchoolShiftController = require('./controllers/SchoolShiftController');
 
 router.get('/admins',               AdminController.index);
 router.get('/admins/:id',           AdminController.show);
@@ -43,5 +44,7 @@ router.get('/genders/:id',          GenderController.show);
 router.post('/genders',             GenderController.create);
 router.put('/genders/update/:id',   GenderController.update);
 router.delete('/genders/delete/:id',GenderController.destroy);
+
+router.post('/school-shifts',             SchoolShiftController.create);
 
 module.exports = router;
