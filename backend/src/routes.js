@@ -63,5 +63,6 @@ router.get('/grades',                   GradeController.index);
 router.get('/grades/:id',               GradeController.show);
 router.post('/grades',                  GradeController.create);
 router.put('/grades/update/:id',        GradeController.update);
+router.delete('/grades/delete/:id',     GradeController.destroy);
 
 module.exports = router;
