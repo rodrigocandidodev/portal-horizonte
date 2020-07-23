@@ -52,4 +52,26 @@ module.exports = {
             return response.json(notifications.error.receiving_data);
         }
     },
+    async show(request, response){
+        try{
+            const id    = request.params.id;
+            const grade = await connection('grades')
+                .innerJoin('scholarities', 'grades.scholarity_id', '=', 'scholarities.id')
+                .select(['grades.id','grades.grade', 'grades.beginning_age', 'grades.scholarity_id', 'scholarities.scholarity'])
+                .where('grades.id', id)
+                .first();
+            if(!grade){
+                return response.status(400).json({
+                    message: notifications.alert.no_data_found,
+                    data: null
+                });
+            }else{
+                return response.json(grade);
+            }
+        } catch(error) {
+            return response.json({
+                error: notifications.error.receiving_data
+            });
+        }
+    },
 };

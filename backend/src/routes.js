@@ -60,6 +60,7 @@ router.put('/scholarities/update/:id',      ScholarityController.update);
 router.delete('/scholarities/delete/:id',   ScholarityController.destroy);
 
 router.get('/grades',                   GradeController.index);
+router.get('/grades/:id',               GradeController.show);
 router.post('/grades',                  GradeController.create);
 
 module.exports = router;
