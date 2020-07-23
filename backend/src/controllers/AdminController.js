@@ -117,6 +117,42 @@ module.exports = {
             const id = request.params.id;
             const {name, username, email}    = request.body;
 
+            //checking if any field is empty
+            if(!name || !username || !email) {
+                return response.json({message: notifications.alert.empty_fields});
+            } 
+
+            //checking if email is valid
+            if(email.indexOf('@') == -1 || email.indexOf('.')==-1 ){
+                return response.json({message: notifications.alert.invalid_email});
+            }
+
+            //Checking if the email is already used
+            const email_used = await connection('admins')
+                .whereNot('id', '=', id)
+                .andWhere('email', email)
+                .select('id')
+                .first();
+
+            if(email_used){
+                return response.json({
+                    message: notifications.alert.email_already_used
+                });
+            }
+
+            //Checking if the username is already used
+            const username_used = await connection('admins')
+                .whereNot('id','=',id)
+                .andWhere('username','=', username)
+                .select('id')
+                .first();
+
+            if(username_used){
+                return response.json({
+                    message: notifications.alert.username_already_used
+                });
+            }
+
             //updating data
             const admin = await connection('admins')
                 .where('id', id)
@@ -135,6 +171,7 @@ module.exports = {
                 data: updated_data
             })
         }catch(error){
+            console.error(error);
             return response.json({
                 error: notifications.error.updating_data
             });
