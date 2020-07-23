@@ -74,4 +74,48 @@ module.exports = {
             });
         }
     },
+    async update(request, response){
+        try{
+            const id = request.params.id;
+            const {grade, beginning_age, scholarity_id}  = request.body;
+
+            //Checking if the grade is already added
+            const grade_already_added = await connection('grades')
+                .where('grade', grade)
+                .select('id')
+                .first();
+            if(grade_already_added){
+                return response.json({
+                    message: notifications.alert.grade_already_added
+                });
+            }
+
+            //updating data
+            const updating_scholarity = await connection('grades')
+                .where('id', id)
+                .update({
+                    'grade': grade,
+                    'beginning_age': beginning_age, 
+                    'scholarity_id': scholarity_id
+                });
+            
+            //receiving the updated data
+            const updated_data = await connection('grades')
+                .innerJoin('scholarities', 'grades.scholarity_id', '=', 'scholarities.id')
+                .select(['grades.id','grades.grade', 'grades.beginning_age', 'grades.scholarity_id', 'scholarities.scholarity'])
+                .where('grades.id', id)
+                .first();        
+            
+            console.log('[bknd server] Grade: ' + notifications.success.update_data);
+
+            return response.json({
+                message: notifications.success.update_data,
+                data: updated_data
+            })
+        }catch(error){
+            return response.json({
+                error: notifications.error.updating_data
+            });
+        }
+    },
 };
