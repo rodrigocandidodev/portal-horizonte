@@ -73,6 +73,17 @@ module.exports = {
             const id        = request.params.id;
             const {color}   = request.body;
 
+            //Checking if the color is already added
+            const color_already_added = await connection('colors')
+                .where('color', color)
+                .select('id')
+                .first();
+            if(color_already_added){
+                return response.json({
+                    message: notifications.alert.color_already_added
+                });
+            }
+
             //updating data
             const updating_color = await connection('colors')
                 .where('id', id)
