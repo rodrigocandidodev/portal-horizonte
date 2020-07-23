@@ -41,4 +41,15 @@ module.exports = {
             return response.json(notifications.error.insert_data);
         }
     },
+    async index(request, response){
+        try {
+            const grades = await connection('grades')
+                .innerJoin('scholarities', 'grades.scholarity_id', '=', 'scholarities.id')
+                .select(['grades.id','grades.grade', 'grades.beginning_age', 'grades.scholarity_id', 'scholarities.scholarity']);
+            
+            return response.json(grades);
+        } catch (error) {
+            return response.json(notifications.error.receiving_data);
+        }
+    },
 };
