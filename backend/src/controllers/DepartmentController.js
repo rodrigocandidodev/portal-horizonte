@@ -73,6 +73,17 @@ module.exports = {
             const id        = request.params.id;
             const {name}    = request.body;
 
+            //Checking if the department is already added
+            const department_already_added = await connection('departments')
+                .where('name', name)
+                .select('id')
+                .first();
+            if(department_already_added){
+                return response.json({
+                    message: notifications.alert.department_already_added
+                });
+            }
+
             //updating data
             const department = await connection('departments')
                 .where('id', id)
