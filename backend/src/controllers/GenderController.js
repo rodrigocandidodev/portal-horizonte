@@ -73,6 +73,18 @@ module.exports = {
             const id        = request.params.id;
             const {gender}  = request.body;
 
+            //Checking if the gender is already added
+            const gender_already_added = await connection('genders')
+                .whereNot('id','=', id)
+                .andWhere('gender', gender)
+                .select('id')
+                .first();
+            if(gender_already_added){
+                return response.json({
+                    message: notifications.alert.gender_already_added
+                });
+            }
+
             //updating data
             const updating_gender = await connection('genders')
                 .where('id', id)
