@@ -75,7 +75,8 @@ module.exports = {
 
             //Checking if the department is already added
             const department_already_added = await connection('departments')
-                .where('name', name)
+                .whereNot('id', '=', id)
+                .andWhere('name', name)
                 .select('id')
                 .first();
             if(department_already_added){
