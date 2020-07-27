@@ -81,7 +81,8 @@ module.exports = {
 
             //Checking if the grade is already added
             const grade_already_added = await connection('grades')
-                .where('grade', grade)
+                .whereNot('id', '=', id)
+                .andWhere('grade', grade)
                 .select('id')
                 .first();
             if(grade_already_added){
