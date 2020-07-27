@@ -75,7 +75,8 @@ module.exports = {
 
             //Checking if the color is already added
             const color_already_added = await connection('colors')
-                .where('color', color)
+                .whereNot('id', '=', id)
+                .andWhere('color', color)
                 .select('id')
                 .first();
             if(color_already_added){
