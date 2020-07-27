@@ -79,7 +79,8 @@ module.exports = {
 
             //Checking if this data is already added
             const job_already_added = await connection('jobs')
-                .where({
+                .whereNot('id', '=', id)
+                .andWhere({
                     name: name,
                     department_id: department_id
                 })
