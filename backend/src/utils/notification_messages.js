@@ -18,6 +18,7 @@ module.exports = {
         gender_already_added: 'This Gender is already added!',
         school_shift_already_added: 'This School Shift is already added!',
         scholarity_already_added: 'This Scholarity is already added!',
+        scholarity_used: 'You cannot remove this scholarity! There are some grades related to it.',
         grade_already_added: 'This Grade is already added!',
         school_year_already_added: 'This Year is already added!'
     },

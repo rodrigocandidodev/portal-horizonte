@@ -112,6 +112,19 @@ module.exports = {
         try{
             const id = request.params.id;
 
+            //Check if the scholarity is been used
+            const allowed_to_delete = await connection('grades')
+                .where({
+                    scholarity_id: id
+                })
+                .select('id');
+            if (allowed_to_delete) {
+                return response.json({
+                    message: notifications.alert.scholarity_used,
+                    data: null
+                });
+            }
+
             const deleting_data = await connection('scholarities')
                 .where('id', id)
                 .del();
