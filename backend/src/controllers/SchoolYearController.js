@@ -68,6 +68,46 @@ module.exports = {
             });
         }
     },
+    async update(request, response){
+        try{
+            const id        = request.params.id;
+            const {year}    = request.body;
+
+            //Checking if the data is already added
+            const year_already_added = await connection('school_years')
+                .whereNot('id', '=', id)
+                .andWhere('year', year)
+                .select('id')
+                .first();
+            if(year_already_added){
+                return response.json({
+                    message: notifications.alert.school_year_already_added
+                });
+            }
+
+            //updating data
+            const updating_school_year = await connection('school_years')
+                .where('id', id)
+                .update({year});
+            
+            //receiving the updated data
+            const updated_data = await connection('school_years')
+                .select('id','year')
+                .where('id', id)
+                .first();
+            
+            console.log('[bknd server] School Year: ' + notifications.success.update_data);
+
+            return response.json({
+                message: notifications.success.update_data,
+                data: updated_data
+            })
+        }catch(error){
+            return response.json({
+                error: notifications.error.updating_data
+            });
+        }
+    },
     async destroy(request, response){
         try{
             const id = request.params.id;

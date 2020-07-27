@@ -21,6 +21,7 @@ router.delete('/admins/delete/:id', AdminController.destroy);
 router.get('/school-years',                 SchoolYearController.index);
 router.get('/school-years/:id',             SchoolYearController.show);
 router.post('/school-years',                SchoolYearController.create);
+router.put('/school-years/update/:id',      SchoolYearController.update);
 router.delete('/school-years/delete/:id',   SchoolYearController.destroy);
 
 router.get('/departments',                  DepartmentController.index);
