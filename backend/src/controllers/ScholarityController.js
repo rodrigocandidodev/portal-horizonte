@@ -73,6 +73,18 @@ module.exports = {
             const id        = request.params.id;
             const {scholarity}  = request.body;
 
+             //Checking if the scholarity is already added
+             const scholarity_already_added = await connection('scholarities')
+                .whereNot('id', '=', id)
+                .andWhere('scholarity', scholarity)
+                .select('id')
+                .first();
+            if(scholarity_already_added){
+                return response.json({
+                    message: notifications.alert.scholarity_already_added
+                });
+            }
+
             //updating data
             const updating_scholarity = await connection('scholarities')
                 .where('id', id)
