@@ -73,6 +73,18 @@ module.exports = {
             const id                = request.params.id;
             const {school_shift}    = request.body;
 
+            //Checking if the data is already added
+            const school_shift_already_added = await connection('school_shifts')
+                .whereNot('id', '=', id)
+                .andWhere('school_shift', school_shift)
+                .select('id')
+                .first();
+            if(school_shift_already_added){
+                return response.json({
+                    message: notifications.alert.school_shift_already_added
+                });
+            }
+
             //updating data
             const updating_school_shift = await connection('school_shifts')
                 .where('id', id)
